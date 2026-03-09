@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>GX Bet - Home</title>
+</head>
+<body>
+    <header>
+        <div class="logo"><div class="logo-icon">G</div> GX BET</div>
+        <div id="display-balance" style="font-weight:bold; font-size:14px;">UGX 0</div>
+    </header>
+
+    <div style="padding: 10px; background: white; border-bottom: 1px solid #ddd;">
+        <input type="text" id="searchBar" onkeyup="filterMatches()" placeholder="Search teams or leagues..." 
+        style="width:100%; padding:10px; border-radius:20px; border:1px solid #ccc; box-sizing: border-box;">
+    </div>
+
+    <nav>
+        <a href="index.html" class="active">Sports</a>
+        <a href="live.html">Live</a>
+        <a href="profile.html">Profile</a>
+    </nav>
+
+    <div class="content" id="matchList">
+        <div class="match-card">
+            <div style="font-size:12px; color:#666;">English Premier League</div>
+            <div style="font-weight:bold;">Chelsea vs Arsenal</div>
+            <div class="odds-row">
+                <div class="odds-box" onclick="alert('Added to Betslip')"><span class="odds-label">1</span><span class="odds-val">2.10</span></div>
+                <div class="odds-box" onclick="alert('Added to Betslip')"><span class="odds-label">X</span><span class="odds-val">3.40</span></div>
+                <div class="odds-box" onclick="alert('Added to Betslip')"><span class="odds-label">2</span><span class="odds-val">3.15</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="index.html" class="nav-item active">🏠<br>Home</a>
+        <a href="live.html" class="nav-item">⚽<br>Live</a>
+        <a href="#" class="nav-item" onclick="alert('Betslip is empty')">🧾<br>Betslip</a>
+        <a href="profile.html" class="nav-item">👤<br>Me</a>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
