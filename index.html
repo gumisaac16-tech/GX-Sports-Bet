@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GX Bet | gxbet.ug</title>
+    <style>
+        :root { --red: #E41A27; --dark-bg: #121212; --card-bg: #1E1E1E; --text: #E0E0E0; --gold: #FFC107; }
+        body { font-family: 'Roboto', sans-serif; margin: 0; background: var(--dark-bg); color: var(--text); padding-bottom: 70px; overflow-x: hidden; }
+        
+        /* HEADER & BIG G */
+        header { background: var(--red); color: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 2000; }
+        .logo { font-weight: 900; font-size: 28px; display: flex; align-items: center; }
+        .logo-icon { background: white; color: var(--red); width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 42px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+        
+        /* ADVERTISEMENT BANNER */
+        .promo-slider { width: 100%; height: 150px; background: linear-gradient(45deg, #800000, #E41A27); margin-bottom: 10px; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; border-bottom: 3px solid var(--gold); }
+        .promo-content { text-align: center; color: white; animation: slideIn 1s ease-out; }
+        .promo-content h2 { margin: 0; font-size: 22px; color: var(--gold); }
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+
+        /* NAVIGATION */
+        nav { background: #000; display: flex; overflow-x: auto; white-space: nowrap; border-bottom: 1px solid #333; }
+        nav button { background: none; border: none; color: #888; padding: 15px; font-weight: bold; cursor: pointer; font-size: 13px; text-transform: uppercase; }
+        nav button.active { color: white; border-bottom: 3px solid var(--gold); }
+
+        /* PAGE SYSTEM */
+        .page { display: none; padding: 10px; }
+        .page.active { display: block; }
+
+        /* MATCH CARDS */
+        .match-card { background: var(--card-bg); border-radius: 8px; padding: 15px; margin-bottom: 10px; border: 1px solid #333; }
+        .odds-row { display: flex; gap: 8px; margin-top: 10px; }
+        .odd-box { flex: 1; background: #2A2A2A; border: 1px solid #444; padding: 12px; text-align: center; border-radius: 4px; cursor: pointer; }
+        .odd-box.selected { background: var(--red); border-color: var(--gold); }
+        .o-val { color: var(--gold); font-weight: bold; font-size: 16px; }
+
+        /* CASINO GRID (100+ Games Logic) */
+        .casino-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .game-card { background: #222; border-radius: 8px; height: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #333; font-size: 11px; text-align: center; font-weight: bold; color: var(--gold); }
+        .game-card i { font-size: 24px; margin-bottom: 5px; }
+
+        /* BETSLIP OVERLAY */
+        #betslip-overlay { position: fixed; top: 0; right: -100%; width: 100%; height: 100%; background: var(--dark-bg); z-index: 3000; transition: 0.4s; padding: 20px; box-sizing: border-box; }
+        #betslip-overlay.open { right: 0; }
+        .slip-item { background: #222; padding: 10px; margin-bottom: 10px; border-left: 4px solid var(--red); }
+
+        /* BOTTOM NAV */
+        .bottom-nav { position: fixed; bottom: 0; width: 100%; background: #000; display: flex; padding: 12px 0; border-top: 1px solid #333; z-index: 2500; }
+        .nav-item { flex: 1; text-align: center; color: #888; font-size: 11px; cursor: pointer; }
+        .nav-item.active { color: var(--red); }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo"><div class="logo-icon">G</div> GX BET</div>
+    <button onclick="switchPage('register')" style="background:var(--gold); border:none; padding:8px 15px; border-radius:4px; font-weight:bold;">REGISTER</button>
+</header>
+
+<div class="promo-slider">
+    <div class="promo-content">
+        <h2>ARSENAL vs MAN CITY</h2>
+        <p>ODDS BOOST: 4.50 → <span style="color:var(--gold); font-weight:bold;">6.00</span></p>
+        <small>Bet Now on gxbet.ug</small>
+    </div>
+</div>
+
+<nav id="mainNav">
+    <button class="active" onclick="switchPage('sports')">Sports</button>
+    <button onclick="switchPage('casino')">HX Casino</button>
+    <button onclick="switchPage('live')">Live</button>
+</nav>
+
+<div id="page-sports" class="page active">
+    <div id="sportsList"></div>
+</div>
+
+<div id="page-casino" class="page">
+    <h2 style="color:var(--gold)">HX CASINO</h2>
+    <div class="casino-grid" id="casinoList">
+        </div>
+</div>
+
+<div id="page-register" class="page">
+    <div style="background:var(--card-bg); padding:30px; border-radius:10px; margin-top:20px;">
+        <h3>Join GX Bet Uganda</h3>
+        <input type="tel" placeholder="Phone Number (07...)" style="width:100%; padding:15px; margin-bottom:15px; background:#333; border:none; color:white;">
+        <input type="password" placeholder="Password" style="width:100%; padding:15px; margin-bottom:15px; background:#333; border:none; color:white;">
+        <button onclick="alert('Account Created!')" style="width:100%; padding:15px; background:var(--red); color:white; border:none; font-weight:bold;">CREATE ACCOUNT</button>
+    </div>
+</div>
+
+<div id="betslip-overlay">
+    <button onclick="toggleSlip()" style="color:white; background:none; border:none; font-size:20px;">✕ Close</button>
+    <h2 style="color:var(--red)">Your Selections</h2>
+    <div id="slipItems"></div>
+    <div style="background:#222; padding:20px; border-top:2px solid var(--gold);">
+        <p>Total Odds: <span id="totalOdds" style="color:var(--gold)">1.00</span></p>
+        <button onclick="alert('Bet Placed!')" style="width:100%; padding:15px; background:var(--red); border:none; color:white; font-weight:bold;">PLACE BET</button>
+    </div>
+</div>
+
+<div class="bottom-nav">
+    <div class="nav-item active" onclick="switchPage('sports')">🏠<br>Home</div>
+    <div class="nav-item" onclick="switchPage('casino')">🎰<br>Casino</div>
+    <div class="nav-item" onclick="toggleSlip()">🧾<br>Slip (<span id="slipCount">0</span>)</div>
+    <div class="nav-item" onclick="switchPage('register')">👤<br>Me</div>
+</div>
+
+<script>
+    let selections = [];
+
+    // 1. PAGE SWITCHER
+    function switchPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById('page-' + id).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    // 2. GENERATE 100 CASINO GAMES
+    function loadCasino() {
+        const list = document.getElementById('casinoList');
+        const coreGames = ["🚀 Aviator", "💣 Mines", "🐔 Chicken", "🎲 Dice", "⚽ Penalty", "🃏 Poker", "🎡 Roulette"];
+        let html = "";
+        for(let i=1; i<=100; i++) {
+            let name = coreGames[i % coreGames.length] + " " + i;
+            html += `<div class="game-card"><i>🎮</i>${name}</div>`;
+        }
+        list.innerHTML = html;
+    }
+
+    // 3. GENERATE SPORTS
+    function loadSports() {
+        const list = document.getElementById('sportsList');
+        for(let i=1; i<=20; i++) {
+            list.innerHTML += `
+                <div class="match-card">
+                    <div style="font-size:11px; color:var(--red)">PREMIER LEAGUE</div>
+                    <div style="display:flex; justify-content:space-between; margin:10px 0;">
+                        <span>Team A ${i}</span> <span>vs</span> <span>Team B ${i}</span>
+                    </div>
+                    <div class="odds-row">
+                        <div class="odd-box" onclick="addSelection('Team A ${i}', 1.80, this)"><span class="o-val">1.80</span></div>
+                        <div class="odd-box" onclick="addSelection('Draw', 3.50, this)"><span class="o-val">3.50</span></div>
+                        <div class="odd-box" onclick="addSelection('Team B ${i}', 4.20, this)"><span class="o-val">4.20</span></div>
+                    </div>
+                </div>`;
+        }
+    }
+
+    // 4. BETSLIP SYSTEM
+    function addSelection(team, odd, el) {
+        el.classList.toggle('selected');
+        selections.push({ team, odd });
+        updateSlip();
+    }
+
+    function updateSlip() {
+        document.getElementById('slipCount').innerText = selections.length;
+        const items = document.getElementById('slipItems');
+        items.innerHTML = selections.map(s => `
+            <div class="slip-item">
+                <strong>${s.team}</strong><br>
+                <span>Odds: <span style="color:var(--gold)">${s.odd}</span></span>
+            </div>
+        `).join('');
+        let total = selections.reduce((a, b) => a * b.odd, 1).toFixed(2);
+        document.getElementById('totalOdds').innerText = total;
+    }
+
+    function toggleSlip() {
+        document.getElementById('betslip-overlay').classList.toggle('open');
+    }
+
+    loadSports();
+    loadCasino();
+</script>
+
+</body>
+</html>
