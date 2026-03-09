@@ -1,0 +1,39 @@
+// Initialize Balance if not set
+if (!localStorage.getItem('gx_balance')) {
+    localStorage.setItem('gx_balance', '0');
+}
+
+// Function to update balance display on any page
+function updateUI() {
+    const balElement = document.getElementById('display-balance');
+    if (balElement) {
+        let currentBal = parseFloat(localStorage.getItem('gx_balance'));
+        balElement.innerText = `UGX ${currentBal.toLocaleString()}`;
+    }
+}
+
+// Function to "Deposit" fake money
+function depositMoney() {
+    let amount = prompt("Enter amount to deposit (UGX):", "5000");
+    if (amount && !isNaN(amount)) {
+        let currentBal = parseFloat(localStorage.getItem('gx_balance'));
+        localStorage.setItem('gx_balance', (currentBal + parseFloat(amount)).toString());
+        updateUI();
+        alert("Deposit Successful!");
+    }
+}
+
+// Simple Search Function
+function filterMatches() {
+    let input = document.getElementById('searchBar').value.toLowerCase();
+    let cards = document.getElementsByClassName('match-card');
+    
+    for (let card of cards) {
+        let teams = card.innerText.toLowerCase();
+        card.style.display = teams.includes(input) ? "block" : "none";
+    }
+}
+
+// Run UI update on load
+window.onload = updateUI;
+a
