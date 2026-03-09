@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>GX BET | gxbet.ug</title>
+    <style>
+        :root { --sb-red: #E41A27; --sb-dark: #1B1E25; --sb-grey: #F4F4F4; --gold: #FFC107; }
+        body { font-family: 'Roboto', Arial, sans-serif; margin: 0; background: var(--sb-grey); padding-bottom: 80px; overflow-x: hidden; }
+        
+        /* HEADER & BIG G */
+        header { background: var(--sb-red); color: white; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 2000; }
+        .logo-area { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { background: white; color: var(--sb-red); width: 55px; height: 55px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 900; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+        .menu-toggle { font-size: 28px; cursor: pointer; background: none; border: none; color: white; }
+
+        /* SIDE MENU */
+        #side-menu { position: fixed; left: -280px; top: 0; width: 280px; height: 100%; background: white; z-index: 4000; transition: 0.3s; box-shadow: 5px 0 15px rgba(0,0,0,0.3); }
+        #side-menu.open { left: 0; }
+        .menu-header { background: var(--sb-dark); color: white; padding: 25px 20px; }
+        .menu-list { list-style: none; padding: 0; margin: 0; }
+        .menu-list li { padding: 15px 20px; border-bottom: 1px solid #eee; font-weight: bold; color: #333; }
+
+        /* ADS WITH REAL VIBES */
+        .ad-container { width: 100%; height: 160px; position: relative; overflow: hidden; background: #000; }
+        .ad-image { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; }
+        .ad-text { position: absolute; bottom: 15px; left: 15px; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.8); }
+
+        /* NAVIGATION TABS */
+        nav { background: var(--sb-dark); display: flex; overflow-x: auto; white-space: nowrap; scrollbar-width: none; }
+        nav button { background: none; border: none; color: #9CA0AB; padding: 15px 20px; font-weight: bold; text-transform: uppercase; font-size: 13px; }
+        nav button.active { color: white; border-bottom: 4px solid var(--gold); }
+
+        /* CONTENT & GENERATED MATCHES */
+        .content { padding: 10px; }
+        .match-card { background: white; border-radius: 4px; padding: 15px; margin-bottom: 8px; border-bottom: 1px solid #ddd; }
+        .league { font-size: 10px; color: var(--sb-red); font-weight: bold; margin-bottom: 5px; }
+        .teams { display: flex; justify-content: space-between; font-weight: 800; font-size: 15px; margin-bottom: 12px; color: #333; }
+        .odds-row { display: flex; gap: 5px; }
+        .odd-box { flex: 1; background: #F6F6F6; border: 1px solid #e0e0e0; padding: 10px 5px; text-align: center; border-radius: 4px; cursor: pointer; }
+        .odd-box b { display: block; color: var(--sb-red); font-size: 15px; }
+
+        /* CASOUT SECTION */
+        .cashout-card { background: white; margin: 10px; padding: 15px; border-radius: 8px; border-left: 5px solid var(--gold); display: flex; justify-content: space-between; align-items: center; }
+        .btn-cashout { background: var(--gold); border: none; padding: 10px 15px; border-radius: 4px; font-weight: bold; color: black; }
+
+        /* OVERLAYS */
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; z-index: 3500; }
+        .overlay.active { display: block; }
+    </style>
+</head>
+<body>
+
+<div id="side-menu">
+    <div class="menu-header">
+        <h3>GX BET UGANDA</h3>
+        <p>Balance: <span id="menu-bal">UGX 0</span></p>
+    </div>
+    <ul class="menu-list">
+        <li onclick="switchPage('sports')">⚽ Sports Betting</li>
+        <li onclick="switchPage('casino')">🎰 GX Casino</li>
+        <li onclick="switchPage('cashout')">💸 Cash Out</li>
+        <li>📜 My Bet History</li>
+        <li>💳 Deposit / Withdraw</li>
+        <li>⚙️ Settings</li>
+        <li style="color:red;" onclick="location.reload()">🚪 Logout</li>
+    </ul>
+</div>
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+<header>
+    <div class="logo-area">
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="logo-icon">G</div>
+        <div style="font-weight:900; font-size:22px;">GX BET</div>
+    </div>
+    <div id="top-bal" style="font-weight:bold; font-size:14px;">UGX 0</div>
+</header>
+
+<div class="ad-container">
+    <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?q=80&w=1000" class="ad-image" alt="Football Ad">
+    <div class="ad-text">
+        <h2 style="margin:0;">PREMIER LEAGUE LIVE</h2>
+        <p style="margin:0;">Bet on Arsenal vs Man City | Odds Boosted!</p>
+    </div>
+</div>
+
+<nav id="top-nav">
+    <button class="active" onclick="switchPage('sports')">Football</button>
+    <button onclick="switchPage('basketball')">Basketball</button>
+    <button onclick="switchPage('casino')">GX Casino</button>
+    <button onclick="switchPage('cashout')">Cashout</button>
+</nav>
+
+<div id="page-sports" class="page" style="display:block;">
+    <div class="content" id="sports-list"></div>
+</div>
+
+<div id="page-casino" class="page" style="display:none;">
+    <div class="content" style="display:grid; grid-template-columns: repeat(3, 1fr); gap:10px;" id="casino-list"></div>
+</div>
+
+<div id="page-cashout" class="page" style="display:none;">
+    <div class="cashout-card">
+        <div>
+            <small>Ticket #GX9901</small><br>
+            <strong>Man Utd vs Chelsea</strong><br>
+            <span style="color:green;">Status: Winning</span>
+        </div>
+        <button class="btn-cashout" onclick="doCashout(5400)">CASHOUT <br> UGX 5,400</button>
+    </div>
+</div>
+
+<script>
+    // 1. DATA & GENERATORS
+    const teams = ["Arsenal", "Man Utd", "Vipers SC", "KCCA FC", "Liverpool", "Chelsea", "Real Madrid", "Barca", "Lakers", "Warriors"];
+    const casinoGames = ["🚀 Aviator", "💣 Mines", "🐔 Chicken", "⚽ Penalty", "🎲 Dice", "🎰 Slots", "🎡 Wheel", "🃏 Poker"];
+
+    function initSite() {
+        const sList = document.getElementById('sports-list');
+        const cList = document.getElementById('casino-list');
+        
+        // Generate 30 Sports Matches
+        for(let i=0; i<30; i++) {
+            let t1 = teams[i % teams.length];
+            let t2 = teams[(i+1) % teams.length];
+            sList.innerHTML += `
+                <div class="match-card">
+                    <div class="league">MATCH ${i+1} - FOOTBALL</div>
+                    <div class="teams"><span>${t1}</span> <span>vs</span> <span>${t2}</span></div>
+                    <div class="odds-row">
+                        <div class="odd-box"><b>${(Math.random()*2+1).toFixed(2)}</b><small>1</small></div>
+                        <div class="odd-box"><b>${(Math.random()*1+2).toFixed(2)}</b><small>X</small></div>
+                        <div class="odd-box"><b>${(Math.random()*3+1).toFixed(2)}</b><small>2</small></div>
+                    </div>
+                </div>`;
+        }
+
+        // Generate 100 Casino Games
+        for(let i=1; i<=100; i++) {
+            let game = casinoGames[i % casinoGames.length];
+            cList.innerHTML += `
+                <div style="background:white; padding:15px; text-align:center; border-radius:8px; border:1px solid #ddd; font-size:11px; font-weight:bold;">
+                    ${game}<br>${i}
+                </div>`;
+        }
+    }
+
+    // 2. UI LOGIC
+    function toggleMenu() {
+        document.getElementById('side-menu').classList.toggle('open');
+        document.getElementById('overlay').classList.toggle('active');
+    }
+
+    function switchPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
+        document.getElementById('page-' + pageId).style.display = 'block';
+        toggleMenu(); // Close menu if open
+        window.scrollTo(0,0);
+    }
+
+    function doCashout(amt) {
+        alert("Success! UGX " + amt + " has been added to your balance.");
+        location.reload();
+    }
+
+    // 3. BALANCE INITIALIZE
+    let bal = localStorage.getItem('gx_bal') || 5000;
+    document.getElementById('top-bal').innerText = "UGX " + parseInt(bal).toLocaleString();
+    document.getElementById('menu-bal').innerText = "UGX " + parseInt(bal).toLocaleString();
+
+    initSite();
+</script>
+</body>
+</html>
